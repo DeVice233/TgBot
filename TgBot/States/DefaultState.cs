@@ -18,17 +18,9 @@ namespace TgBot.States
                 return;
             if (arg2.Message.Text == "/start")
             {
-                InlineKeyboardMarkup replyKeyboardMarkup = new(
-                    new[]{
-                        InlineKeyboardButton.WithCallbackData(text: "1.1", callbackData: "main_state1"),
-                        InlineKeyboardButton.WithCallbackData(text: "1.2", callbackData: "main_state2"),
-                    });
-
-                // меняем интерфейс
                 await arg1.SendTextMessageAsync(arg2.Message.Chat.Id,
-                    "Привет",
-                    Telegram.Bot.Types.Enums.ParseMode.Markdown,
-                    replyMarkup: replyKeyboardMarkup);
+                    "Введите название товара", Telegram.Bot.Types.Enums.ParseMode.Markdown
+                         );
 
                 user.State.SetState(new MainMenuState()); // тут указываем класс-обработчик новых команд, таких классов может быть дофига
             }
