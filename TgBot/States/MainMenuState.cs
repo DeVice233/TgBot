@@ -19,16 +19,33 @@ namespace TgBot.States
 
             var url = GetRequest.GetUrl(arg2.Message.Text);
             var page = GetRequest.GetPage(url);
-            Product product = GetRequest.ParseCard(page);
-
-            product.Title = product.Title.Replace("&#x2F;", "/");
+            List<Product> products = GetRequest.ParseCard(page);
+           
+            foreach (var product in products)
+            {
+                product.Title = product.Title.Replace("&#x2F;", "/");
+                product.Title = product.Title.Replace("&#34;", "\"");
+            } 
 
             await arg1.SendTextMessageAsync(arg2.Message.Chat.Id,
-                  product.Title + "\n" + product.Price, Telegram.Bot.Types.Enums.ParseMode.Markdown
-                       );
+                GenerateMessage(products),
+                Telegram.Bot.Types.Enums.ParseMode.Markdown
+                    );
 
             user.State.SetState(new DefaultState());
             await Task.CompletedTask; // заглушка
+        }
+
+        public string GenerateMessage(List<Product> products)
+        {
+            string message = "";
+            int i = 1;
+            foreach (var product in products)
+            {
+                message += i.ToString() + ") " + product.Title + " - " + product.Price + "\n" + "\n";
+                i++;
+            }
+            return message;
         }
     }
 }

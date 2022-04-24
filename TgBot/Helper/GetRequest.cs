@@ -47,23 +47,35 @@ namespace TgBot.Helper
             return response;
         }
 
-        public static Product ParseCard(string data)
+        public static List<Product> ParseCard(string data)
         {
-            var cardTitleStart = data.IndexOf("de0 ed0 de1 e2d tsBodyL i5n");
-            var titleStart = data.IndexOf("<span>", cardTitleStart) + 6;
-            var titleEnd = data.IndexOf("</span>", titleStart);
-            string title = data.Substring(titleStart, titleEnd - titleStart);
+            List<Product> products = new List<Product>();
+            var actualData = data;
+            for (int i = 0; i < 3; i++)
+            {
+                var cardTitleStart = actualData.IndexOf("de0 ed0 de1 e2d tsBodyL i5n");
+                var titleStart = actualData.IndexOf("<span>", cardTitleStart) + 6;
+                var titleEnd = actualData.IndexOf("</span>", titleStart);
+                string title = actualData.Substring(titleStart, titleEnd - titleStart);
+                
+                var cardPriceStart = actualData.IndexOf("ui-s5 ui-s8");
+                var priceStart = actualData.IndexOf(">", cardPriceStart) + 1;
+                var priceEnd = actualData.IndexOf("</span>", priceStart);
+                string price = actualData.Substring(priceStart, priceEnd - priceStart);
 
-            var cardPriceStart = data.IndexOf("ui-s5 ui-s8");
-            var priceStart = data.IndexOf(">", cardPriceStart) + 1;
-            var priceEnd = data.IndexOf("</span>", priceStart);
-            string price = data.Substring(priceStart, priceEnd - priceStart);
+                actualData = actualData.Substring(priceEnd, actualData.Length - priceEnd);
 
-            Product product = new Product { Title = title, Price = price };
+                Product product = new Product { Title = title, Price = price };
+                products.Add(product);
+            }
 
-            Console.WriteLine(product.Title);
-            Console.WriteLine(product.Price);
-            return product;
+            foreach (var item in products)
+            {
+                Console.WriteLine(item.Title);
+                Console.WriteLine(item.Price);
+            }
+           
+            return products;
         }
 
     }
