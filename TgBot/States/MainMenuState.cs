@@ -25,11 +25,16 @@ namespace TgBot.States
             {
                 product.Title = product.Title.Replace("&#x2F;", "/");
                 product.Title = product.Title.Replace("&#34;", "\"");
-            } 
+            }
+
+            ReplyKeyboardMarkup replyKeyboardMarkup = new(
+                   new[]{
+                        new KeyboardButton(text:"Искать товар"),
+                   });
 
             await arg1.SendTextMessageAsync(arg2.Message.Chat.Id,
                 GenerateMessage(products),
-                Telegram.Bot.Types.Enums.ParseMode.Markdown
+                Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: replyKeyboardMarkup
                     );
 
             user.State.SetState(new DefaultState());

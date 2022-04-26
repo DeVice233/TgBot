@@ -19,10 +19,22 @@ namespace TgBot.States
             if (arg2.Message.Text == "/start")
             {
                 await arg1.SendTextMessageAsync(arg2.Message.Chat.Id,
+                    "Добро пожаловать в бота поиска товаров Ozon!", Telegram.Bot.Types.Enums.ParseMode.Markdown
+                         );
+
+                await arg1.SendTextMessageAsync(arg2.Message.Chat.Id,
                     "Введите название товара", Telegram.Bot.Types.Enums.ParseMode.Markdown
                          );
 
                 user.State.SetState(new MainMenuState()); // тут указываем класс-обработчик новых команд, таких классов может быть дофига
+            }
+            if (arg2.Message.Text == "Искать товар")
+            {
+
+                await arg1.SendTextMessageAsync(arg2.Message.Chat.Id,
+                  "Введите название товара", Telegram.Bot.Types.Enums.ParseMode.Markdown
+                       );
+                user.State.SetState(new MainMenuState());
             }
         }
     }
