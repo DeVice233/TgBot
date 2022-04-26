@@ -14,7 +14,7 @@ namespace TgBot.States
     {
         internal override async Task UpdateHandler(User user, Telegram.Bot.ITelegramBotClient arg1, Update arg2)
         {
-            if (arg2.Message == null)
+            if (arg2.Message == null || arg2.Message.Text == null)
                 return;
 
             var url = GetRequest.GetUrl(arg2.Message.Text);
@@ -25,6 +25,7 @@ namespace TgBot.States
             {
                 product.Title = product.Title.Replace("&#x2F;", "/");
                 product.Title = product.Title.Replace("&#34;", "\"");
+                product.Title = product.Title.Replace("&#39;", "'");
             }
 
             ReplyKeyboardMarkup replyKeyboardMarkup = new(

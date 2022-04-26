@@ -23,7 +23,7 @@ namespace TgBot.States
                          );
 
                 await arg1.SendTextMessageAsync(arg2.Message.Chat.Id,
-                    "Введите название товара", Telegram.Bot.Types.Enums.ParseMode.Markdown
+                    "Введите название товара", Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardRemove()
                          );
 
                 user.State.SetState(new MainMenuState()); // тут указываем класс-обработчик новых команд, таких классов может быть дофига
@@ -32,10 +32,11 @@ namespace TgBot.States
             {
 
                 await arg1.SendTextMessageAsync(arg2.Message.Chat.Id,
-                  "Введите название товара", Telegram.Bot.Types.Enums.ParseMode.Markdown
+                  "Введите название товара", Telegram.Bot.Types.Enums.ParseMode.Markdown, replyMarkup: new ReplyKeyboardRemove()
                        );
                 user.State.SetState(new MainMenuState());
             }
+           
         }
     }
 }
