@@ -36,7 +36,6 @@ namespace TgBot.States
                        );
                 user.State.SetState(new MainMenuState());
             }
-           
         }
     }
 }

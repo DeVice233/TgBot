@@ -13,6 +13,7 @@ namespace TgBot.Helper
     {
         public static string GetUrl(string text)
         {
+            Console.WriteLine(text);
             string mes = text;
             string[] words = mes.Split();
             for (int i = 0; i < words.Length; i++)
@@ -53,12 +54,12 @@ namespace TgBot.Helper
             var actualData = data;
             for (int i = 0; i < 3; i++)
             {
-                var cardPriceStart = actualData.IndexOf("ui-s5 ui-s8");
+                var cardPriceStart = actualData.IndexOf("ui-s8 ui-t1");
                 var priceStart = actualData.IndexOf(">", cardPriceStart) + 1;
                 var priceEnd = actualData.IndexOf("</span>", priceStart);
                 string price = actualData.Substring(priceStart, priceEnd - priceStart);
-                var cardTitleStart = actualData.IndexOf("de0 ed0 de1 e2d tsBodyL i5n");
 
+                var cardTitleStart = actualData.IndexOf("f6d d7f f7d fd9 tsBodyL si4");
                 var titleStart = actualData.IndexOf("<span>", cardTitleStart) + 6;
                 var titleEnd = actualData.IndexOf("</span>", titleStart);
                 string title = actualData.Substring(titleStart, titleEnd - titleStart);
